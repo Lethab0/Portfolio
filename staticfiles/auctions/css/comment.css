@@ -1,0 +1,221 @@
+.commentbody{
+	background-color: #fff;
+}
+.commentcontainer{
+	background-color: #eef2f5;
+	width: 400px;
+}
+.addtxt{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+	font-size: 13px;
+	width: 350px;
+	background-color: #e5e8ed;
+	font-weight: 500;
+}
+.form-control:focus{
+	color: #000;
+}
+.second{
+	width: 350px;
+	background-color: white;
+	border-radius: 4px;
+	box-shadow: 10px 10px 5px #aaaaaa;
+}
+.text1{
+	font-size: 13px;
+    font-weight: 500;
+    color: #56575b;
+}
+.text2{
+	font-size: 13px;
+    font-weight: 500;
+    margin-left: 6px;
+    color: #56575b;
+}
+.text3{
+	font-size: 13px;
+    font-weight: 500;
+    margin-right: 4px;
+    color: #828386;
+}
+.text3o{
+	color: #00a5f4;
+
+}
+.text4{
+	font-size: 13px;
+    font-weight: 500;
+    color: #828386;
+}
+.text4i{
+	color: #00a5f4;
+}
+.text4o{
+	color: white;
+}
+.thumbup{
+	font-size: 13px;
+    font-weight: 500;
+    margin-right: 5px;
+}
+.thumbupo{
+	color: #17a2b8;
+}
+
+.button-34 {
+    background: #5E5DF0;
+    border-radius: 999px;
+    box-shadow: #5E5DF0 0 10px 20px -10px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    opacity: 1;
+    outline: 0 solid transparent;
+    padding: 8px 18px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: fit-content;
+    word-break: break-word;
+    border: 0;
+  }
+
+
+  /* for the bidding button// */
+
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .formbold-main-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+  }
+
+  .formbold-form-wrapper {
+    margin: 0 auto;
+    max-width: 550px;
+    width: 100%;
+    background: white;
+  }
+
+  .formbold-form-input {
+    width: 100%;
+    padding: 13px 22px;
+    border-radius: 6px;
+    border: 1px solid #DDE3EC;
+    background: white;
+    font-weight: 500;
+    font-size: 16px;
+    color: #536387;
+    outline: none;
+    resize: none;
+  }
+  .formbold-form-input:focus {
+    border-color: #6a64f1;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+  }
+  .formbold-email-subscription-form {
+    display: flex;
+    gap: 15px;
+  }
+
+  .formbold-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 13px 25px;
+    border: none;
+    font-weight: 500;
+    background-color: #6A64F1;
+    color: white;
+    cursor: pointer;
+  }
+  .formbold-btn:hover {
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+  }
+
+
+
+  .Categorycontainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* Adjust as needed */
+    padding: 20px; /* Adjust as needed */
+    background-color: #f9f9f9; /* Adjust as needed */
+    border-radius: 10px; /* Adjust as needed */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust as needed */
+  }
+
+  .category-box {
+    width: 200px; /* Adjust as needed */
+    padding: 20px;
+    background-color: #007bff; /* Blue color */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .category-box:hover {
+    transform: scale(1.05);
+  }
+
+  .category-heading {
+    font-size: 20px;
+    color: #ffffff; /* White text color */
+    margin-bottom: 10px;
+  }
+
+  .category-link {
+    text-decoration: none;
+    color: #ffffff; /* White link color */
+    font-weight: bold;
+  }
+
+  .category-box {
+    width: 200px; /* Adjust as needed */
+    padding: 20px;
+    background-color: #007bff; /* Blue color */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .category-box:hover {
+    transform: scale(1.05);
+  }
+
+  .category-heading {
+    font-size: 20px;
+    color: #ffffff; /* White text color */
+    margin-bottom: 10px;
+  }
+
+  .category-link {
+    text-decoration: none;
+    color: #ffffff; /* White link color */
+    font-weight: bold;
+  }
+
+  .blue-box {
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+  
