@@ -1,0 +1,49 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+  <!-- shop section -->
+
+  <section class="shop_section layout_padding">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>
+          All Products
+        </h2>
+      </div>
+      <div class="row">
+        {% for listing in listings %}
+{% if listing.Auction_open %}
+<div class="col-sm-6 col-md-4 col-lg-3">
+  <div class="box">
+    <a href="">
+      <div class="img-box">
+        <img src="{{ listing.Image_url }}" alt="">
+      </div>
+      <div class="detail-box">
+        <h6>
+          <a href="{% url 'Specific_listing' ID=listing.id %}">{{ listing.Title }}</a>
+        </h6>
+        <h6>
+          Price
+          <span>
+            ${{ listing.current_price }}
+          </span>
+        </h6>
+      </div>
+      <div class="new">
+        <span>
+          New
+        </span>
+      </div>
+    </a>
+  </div>
+</div>
+
+{% endif %}
+{% endfor %}
+    </div>
+  </section>
+
+  <!-- end shop section -->
+  {% endblock %}

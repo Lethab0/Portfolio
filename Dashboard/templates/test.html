@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Continuous Data Loading</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            function loadData() {
+                $.ajax({
+                    url: '{% url "index" %}',
+                    type: 'GET',
+                    success: function(data) {
+                        // Update your HTML with fetched data
+                        $('#data-container').html(data);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+
+            // Call loadData() initially
+            loadData();
+
+            // Call loadData() every 5 seconds (adjust as needed)
+            setInterval(loadData, 5); // 5000 milliseconds = 5 seconds
+        });
+    </script>
+</head>
+<body>
+    <div id="data-container">
+        {% for item in initial_data %}
+            <!-- Render initial data -->
+            <p>{{ item }}</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
+
+

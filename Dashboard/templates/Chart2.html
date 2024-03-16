@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'auctions/css/bootstrap.css' %}" />
+
+  
+  
+  <link rel="stylesheet" type="text/css" href="{% static 'auctions/css/comment.css' %}" />
+  
+    <style>
+        /* Add your custom CSS styles for the dashboard layout */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            grid-gap: 20px;
+            padding-left: 300px;
+            align-self: center;
+        }
+        .chart-container {
+            width: 100%;
+            height: 400px;
+            position: relative;
+        }
+
+        .center {
+            padding-left: 600px;
+        }
+
+        .search-box {
+            width: 100px;
+            height: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        .search-box input[type="text"] {
+            width: 80px;
+            height: 100%;
+            border: none;
+            outline: none;
+            font-size: 14px;
+        }
+        .search-box input[type="submit"] {
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <h1 class="center"> Crypto search</h1>
+
+    <form action="" method="POST" class="d-flex justify-content-center pt-3 pb-2">
+          {% csrf_token %}
+          <input type="text" name="Comment_text" placeholder="+ Add comment" class="form-control addtxt">
+          <button type="submit" class="btn btn-primary ml-2">Comment</button>
+    </form>
+
+
+    
+
+
+
+    <div class="dashboard">
+       
+        <div class="chart-container">
+            <canvas id="myChart"></canvas>
+        </div>
+        <div class="other-info">
+            <!-- Add other relevant information here -->
+            <h2>Other Information</h2>
+            <p>This section can contain additional information or data related to your dashboard.</p>
+        </div>
+        <div class="chart-container">
+            <canvas id="myChart2"></canvas> <!-- New canvas ID -->
+        </div>
+        <div class="chart-container">
+            <canvas id="myChart3"></canvas> <!-- New canvas ID -->
+        </div>
+    </div>
+
+    <script>
+        // JavaScript code for fetching data and updating the chart goes here
+        // Make sure to include the necessary chart update logic as shown in previous examples
+        // Function to fetch asset1 data and update the chart with a smooth transition
+function fetchAssetDataAndUpdateChart() {
+    fetch('{% url "Jason" %}')
+        .then(response => response.json())
+        .then(data => {
+            const asset1Data = data.asset1;
+            updateChart(asset1Data);
+        })
+        .catch(error => {
+            console.error('Error fetching asset1 data:', error);
+        });
+}
+
+// Function to update the chart with new data and animate the transition
+function updateChart(asset1Data) {
+    // Assuming myChart is the variable holding your Chart.js chart instance
+    myChart.data.datasets[0].data = asset1Data;
+    myChart.update({
+        duration: 1000, // Animation duration in milliseconds
+        easing: 'linear' // Animation easing function
+    });
+}
+
+// Initial chart configuration
+const initialData = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    datasets: [{
+        label: 'Sample Data',
+        data: [], // Initially empty
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 2
+    }]
+};
+
+// Create the initial chart instance
+const myChart = new Chart(
+    document.getElementById('myChart'),
+    {
+        type: 'line',
+        data: initialData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false // Hide the legend
+                }
+            }, // <-- Comma was missing here
+            animation: {
+                duration: 2000, // Initial animation duration
+                easing: 'linear' // Initial animation easing function
+            }
+        }
+    }
+);
+
+
+// Fetch and update asset1 data periodically with a smooth transition
+fetchAssetDataAndUpdateChart();
+setInterval(fetchAssetDataAndUpdateChart, 30000); // Fetch data every 5 seconds
+//CG-9jpBUQX5rgv4SuD65V8uJWXM
+  </script>
+</body>
+</html>
+
+
+
+
+

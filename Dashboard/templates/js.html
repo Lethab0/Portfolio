@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Star Admin2</title>
+  <!-- plugins:css -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'Dashboard/vendors/feather/feather.css' %}">
+  <link rel="stylesheet" href="{% static 'Dashboard/vendors/mdi/css/materialdesignicons.min.css' %}">
+  <link rel="stylesheet" href="{% static 'Dashboard/vendors/ti-icons/css/themify-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'Dashboard/vendors/typicons/typicons.css' %}">
+  <link rel="stylesheet" href="{% static 'Dashboard/vendors/simple-line-icons/css/simple-line-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'Dashboard/vendors/css/vendor.bundle.base.css' %}">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{% static 'Dashboard/css/vertical-layout-light/style.css' %}">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="{% static 'Dashboard/images/favicon.png' %}" />
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
+      <!-- Navbar content -->
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:../../partials/_settings-panel.html -->
+      <!-- Settings panel content -->
+      <!-- partial -->
+      <div id="right-sidebar" class="settings-panel">
+        <!-- Right sidebar content -->
+      </div>
+      <!-- partial -->
+      <!-- partial:../../partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <!-- Sidebar content -->
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-lg-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Line chart</h4>
+                  <!-- Add canvas for the line chart -->
+                  <canvas id="lineChart"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Bar chart</h4>
+                  <!-- Add canvas for the bar chart -->
+                  <canvas id="barChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Area chart</h4>
+                  <!-- Add canvas for the area chart -->
+                  <canvas id="areaChart"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Doughnut chart</h4>
+                  <!-- Add canvas for the doughnut chart -->
+                  <canvas id="doughnutChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 grid-margin grid-margin-lg-0 stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Pie chart</h4>
+                  <!-- Add canvas for the pie chart -->
+                  <canvas id="pieChart"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 grid-margin grid-margin-lg-0 stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Scatter chart</h4>
+                  <!-- Add canvas for the scatter chart -->
+                  <canvas id="scatterChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+        <!-- Footer content -->
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="{% static 'Dashboard/vendors/js/vendor.bundle.base.js' %}"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="{% static 'Dashboard/vendors/chart.js/Chart.min.js' %}"></script>
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="{% static 'Dashboard/js/off-canvas.js' %}"></script>
+  <script src="{% static 'Dashboard/js/hoverable-collapse.js' %}"></script>
+  <script src="{% static 'Dashboard/js/misc.js' %}"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page -->
+  <script src="{% static 'Dashboard/js/dashboard.js' %}"></script>
+  <!-- End custom js for this page -->
+
+  <!-- Custom script for creating the charts -->
+  <script>
+    // Function to generate random colors
+    function randomColor() {
+        return '#' + Math.random().toString(16).slice(2, 8).toUpperCase();
+    }
+
+    // Data for the line chart (sample data)
+    var lineData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+        datasets: [{
+            label: 'Revenue',
+            backgroundColor: randomColor(),
+            borderColor: randomColor(),
+            borderWidth: 1,
+            data: [100, 200, 150, 250, 200, 300] // Sample revenue data
+        }]
+    };
+
+    // Data for the bar chart (sample data)
+    var barData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+        datasets: [{
+            label: 'Sales',
+            backgroundColor: randomColor(),
+            borderColor: randomColor(),
+            borderWidth: 1,
+            data: [10, 20, 30, 25, 15, 40] // Sample sales data
+        }]
+    };
+
+    // Data for the area chart (sample data)
+    var areaData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+        datasets: [{
+            label: 'Profit',
+            backgroundColor: randomColor(),
+            borderColor: randomColor(),
+            borderWidth: 1,
+            data: [50, 100, 75, 120, 90, 150] // Sample profit data
+        }]
+    };
+
+    // Data for the doughnut chart (sample data)
+    var doughnutData = {
+        labels: ['Red', 'Blue', 'Yellow'],
+        datasets: [{
+            data: [30, 20, 50], // Sample data
+            backgroundColor: [randomColor(), randomColor(), randomColor()]
+        }]
+    };
+
+    // Data for the pie chart (sample data)
+    var pieData = {
+        labels: ['Bitcoin', 'Ethereum'],
+        datasets: [{
+            data: [0, 0], // Initial data
+            backgroundColor: [randomColor(), randomColor()]
+        }]
+    };
+
+    // Data for the scatter chart (sample data)
+    var scatterData = {
+        datasets: [{
+            label: 'Scatter Dataset',
+            data: [{
+                    x: -10,
+                    y: 0
+                },
+                {
+                    x: 0,
+                    y: 10
+                },
+                {
+                    x: 10,
+                    y: 5
+                }
+            ],
+            backgroundColor: randomColor()
+        }]
+    };
+
+    // Configuration options for all charts
+    var chartOptions = {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    };
+
+    // Get the canvas elements
+    var lineCtx = document.getElementById('lineChart').getContext('2d');
+    var barCtx = document.getElementById('barChart').getContext('2d');
+    var areaCtx = document.getElementById('areaChart').getContext('2d');
+    var doughnutCtx = document.getElementById('doughnutChart').getContext('2d');
+    var pieCtx = document.getElementById('pieChart').getContext('2d');
+    var scatterCtx = document.getElementById('scatterChart').getContext('2d');
+
+    // Create the line chart
+    var myLineChart = new Chart(lineCtx, {
+        type: 'line',
+        data: lineData,
+        options: chartOptions
+    });
+
+    // Create the bar chart
+    var myBarChart = new Chart(barCtx, {
+        type: 'bar',
+        data: barData,
+        options: chartOptions
+    });
+
+    // Create the area chart
+    var myAreaChart = new Chart(areaCtx, {
+        type: 'line',
+        data: areaData,
+        options: chartOptions
+    });
+
+    // Create the doughnut chart
+    var myDoughnutChart = new Chart(doughnutCtx, {
+        type: 'doughnut',
+        data: doughnutData,
+        options: chartOptions
+    });
+
+    // Create the pie chart
+    var myPieChart = new Chart(pieCtx, {
+        type: 'pie',
+        data: pieData,
+        options: chartOptions
+    });
+
+    // Create the scatter chart
+    var myScatterChart = new Chart(scatterCtx, {
+        type: 'scatter',
+        data: scatterData,
+        options: chartOptions
+    });
+
+    // Function to fetch crypto prices and update the pie chart
+    function updatePieChart() {
+        // Fetch Bitcoin price
+        fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd')
+            .then(response => response.json())
+            .then(data => {
+                const bitcoinPrice = data.bitcoin.usd;
+
+                // Fetch Ethereum price
+                fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd')
+                    .then(response => response.json())
+                    .then(data => {
+                        const ethereumPrice = data.ethereum.usd;
+
+                        // Update pie chart data
+                        myPieChart.data.datasets[0].data = [bitcoinPrice, ethereumPrice];
+                        myPieChart.update();
+                    })
+                    .catch(error => console.error('Error fetching Ethereum price:', error));
+            })
+            .catch(error => console.error('Error fetching Bitcoin price:', error));
+    }
+
+    // Call updatePieChart function initially to load the data
+    updatePieChart();
+</script>
+
+  <!-- End custom script for creating the charts -->
+</body>
+
+</html>
+
+ <!-- <script>
+  // Function to generate random colors
+  function randomColor() {
+    return '#' + Math.random().toString(16).slice(2, 8).toUpperCase();
+  }
+
+  // Data for the line chart (sample data)
+  var lineData = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+    datasets: [{
+      label: 'Revenue',
+      backgroundColor: randomColor(),
+      borderColor: randomColor(),
+      borderWidth: 1,
+      data: [100, 200, 150, 250, 200, 300] // Sample revenue data
+    }]
+  };
+
+  // Data for the bar chart (sample data)
+  var barData = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+    datasets: [{
+      label: 'Sales',
+      backgroundColor: randomColor(),
+      borderColor: randomColor(),
+      borderWidth: 1,
+      data: [10, 20, 30, 25, 15, 40] // Sample sales data
+    }]
+  };
+
+  // Data for the area chart (sample data)
+  var areaData = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+    datasets: [{
+      label: 'Profit',
+      backgroundColor: randomColor(),
+      borderColor: randomColor(),
+      borderWidth: 1,
+      data: [50, 100, 75, 120, 90, 150] // Sample profit data
+    }]
+  };
+
+  // Data for the doughnut chart (sample data)
+  var doughnutData = {
+    labels: ['Red', 'Blue', 'Yellow'],
+    datasets: [{
+      data: [30, 20, 50], // Sample data
+      backgroundColor: [randomColor(), randomColor(), randomColor()]
+    }]
+  };
+
+  // Data for the pie chart (sample data)
+  var pieData = {
+    labels: ['Red', 'Blue', 'Yellow'],
+    datasets: [{
+      data: [30, 20, 50], // Sample data
+      backgroundColor: [randomColor(), randomColor(), randomColor()]
+    }]
+  };
+
+  // Data for the scatter chart (sample data)
+  var scatterData = {
+    datasets: [{
+      label: 'Scatter Dataset',
+      data: [{
+          x: -10,
+          y: 0
+        },
+        {
+          x: 0,
+          y: 10
+        },
+        {
+          x: 10,
+          y: 5
+        }
+      ],
+      backgroundColor: randomColor()
+    }]
+  };
+
+  // Configuration options for all charts
+  var chartOptions = {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  };
+
+  // Get the canvas elements
+  var lineCtx = document.getElementById('lineChart').getContext('2d');
+  var barCtx = document.getElementById('barChart').getContext('2d');
+  var areaCtx = document.getElementById('areaChart').getContext('2d');
+  var doughnutCtx = document.getElementById('doughnutChart').getContext('2d');
+  var pieCtx = document.getElementById('pieChart').getContext('2d');
+  var scatterCtx = document.getElementById('scatterChart').getContext('2d');
+
+  // Create the line chart
+  var myLineChart = new Chart(lineCtx, {
+    type: 'line',
+    data: lineData,
+    options: chartOptions
+  });
+
+  // Create the bar chart
+  var myBarChart = new Chart(barCtx, {
+    type: 'bar',
+    data: barData,
+    options: chartOptions
+  });
+
+  // Create the area chart
+  var myAreaChart = new Chart(areaCtx, {
+    type: 'line',
+    data: areaData,
+    options: chartOptions
+  });
+
+  // Create the doughnut chart
+  var myDoughnutChart = new Chart(doughnutCtx, {
+    type: 'doughnut',
+    data: doughnutData,
+    options: chartOptions
+  });
+
+  // Create the pie chart
+  var myPieChart = new Chart(pieCtx, {
+    type: 'pie',
+    data: pieData,
+    options: chartOptions
+  });
+
+  // Create the scatter chart
+  var myScatterChart = new Chart(scatterCtx, {
+    type: 'scatter',
+    data: scatterData,
+    options: chartOptions
+  });
+</script>

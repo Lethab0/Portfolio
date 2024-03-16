@@ -1,0 +1,79 @@
+{% extends "auctions/layout.html" %}
+{% block body %}
+
+{% if Categories %}
+  <!-- Category section -->
+  <section class="shop_section layout_padding">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>
+          All Categories
+        </h2>
+      </div>
+      <div class="row">
+        {% for Category in Categories %}
+
+<div class="col-sm-6 col-md-4 col-lg-3">
+  <div class="box">
+    <a href="">
+      <div class="img-box">
+        <img src="" alt="">
+      </div>
+      <div class="detail-box">
+        <h6>
+          <a href="{% url 'Category_items' Heading=Category.Heading %}"><h3 class="category-heading">{{ Category.Heading }}</h3></a>
+        </h6>
+      </div>
+    </a>
+  </div>
+</div>
+
+
+{% endfor %}
+    </div>
+  </section>
+  {% endif %}
+  <!-- End category section -->
+
+
+
+
+
+
+{% if Items %}
+  <section class="shop_section layout_padding">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>
+          Chosen category
+        </h2>
+      </div>
+      <div class="row">
+  {% for item in Items %}
+  <div class="col-sm-6 col-md-4 col-lg-3">
+    <div class="box">
+      <a href="">
+        <div class="img-box">
+          <img src="{{ item.Image_url }}" alt="">
+        </div>
+        <div class="detail-box">
+          <h6>
+            <a href="{% url 'Specific_listing' ID=item.id %}">{{ item.Title }}</a>
+          </h6>
+          <h6>
+            {{ item.Description }}
+            <span>
+              R{{ item.current_price }}
+            </span>
+          </h6>
+        </div>
+      </a>
+    </div>
+  </div>
+  
+  {% endfor %}
+</div>
+</section>
+{% endif %}
+
+{% endblock %}
