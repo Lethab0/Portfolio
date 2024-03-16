@@ -83,8 +83,12 @@ WSGI_APPLICATION = 'Portfolio.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'denfcecje1qlv2',
+        'USER': 'hhihysoivqmzxc',
+        'PASSWORD': '23b6c556037d66dc6cf367d04da81d514990aa2fc3d0d4ea2056596ffee88043',
+        'HOST': 'ec2-52-17-31-244.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -132,6 +136,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'auctions/static')
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'auctions/static/media')
 
