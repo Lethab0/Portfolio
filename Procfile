@@ -1,1 +1,1 @@
-web: gunicorn xvideo.wsgi:application --log-file -
+web: gunicorn Portfolio.wsgi:application --log-file -
