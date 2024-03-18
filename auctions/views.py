@@ -95,7 +95,7 @@ def Create_listing(request):
             category_options.Items.add(listing)
             category_options.save()
 
-        return HttpResponseRedirect(reverse("index"))
+        return HttpResponseRedirect(reverse("auctions:index"))
     else:
         category_options = Category.objects.all()  # Get all categories
         Form = PostForm()
