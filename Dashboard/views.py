@@ -22,10 +22,11 @@ def index(request):
 def Jason(request):
     for i in range(len(asset1)-1):
         asset1[i] = asset1[i+1]
+        print(asset1)
     asset1[-1] = random.randrange(500,2500)
     love = 1
     test = json.dumps(love)
-    return JsonResponse({"asset1": asset1, "asset2": asset2, "asset3": asset3})
+    return JsonResponse({"asset1": asset1})
 
 
 

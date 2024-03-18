@@ -53,6 +53,10 @@
                   <!-- Add canvas for the line chart -->
                   <canvas id="lineChart"></canvas>
                 </div>
+
+                <div class="chart-container">
+                  <canvas id="myChart"></canvas>
+              </div>
               </div>
             </div>
             <div class="col-lg-6 grid-margin stretch-card">
@@ -299,6 +303,73 @@
 
     // Call updatePieChart function initially to load the data
     updatePieChart();
+
+
+// Function to fetch asset1 data and update the chart with a smooth transition
+function fetchAssetDataAndUpdateChart() {
+    fetch('{% url "Jason" %}')
+        .then(response => response.json())
+        .then(data => {
+            const asset1Data = data.asset1;
+            updateChart(asset1Data);
+        })
+        .catch(error => {
+            console.error('Error fetching asset1 data:', error);
+        });
+}
+
+// Function to update the chart with new data and animate the transition
+function updateChart(asset1Data) {
+    // Assuming myChart is the variable holding your Chart.js chart instance
+    myChart.data.datasets[0].data = asset1Data;
+    myChart.update({
+        duration: 1000, // Animation duration in milliseconds
+        easing: 'linear' // Animation easing function
+    });
+}
+
+// Initial chart configuration
+const initialData = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    datasets: [{
+        label: 'Sample Data',
+        data: [], // Initially empty
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 2
+    }]
+};
+
+// Create the initial chart instance
+const myChart = new Chart(
+    document.getElementById('myChart'),
+    {
+        type: 'line',
+        data: initialData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false // Hide the legend
+                }
+            }, // <-- Comma added here
+            animation: {
+                duration: 2000, // Initial animation duration
+                easing: 'linear' // Initial animation easing function
+            }
+        }
+    }
+);
+
+
+// Fetch and update asset1 data periodically with a smooth transition
+fetchAssetDataAndUpdateChart();
+setInterval(fetchAssetDataAndUpdateChart, 1000); // Fetch data every 5 seconds
+
 </script>
 
   <!-- End custom script for creating the charts -->
