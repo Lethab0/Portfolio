@@ -32,6 +32,11 @@
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
       <!-- Navbar content -->
+      <form action='' method="POST" class="d-flex justify-content-center pt-3 pb-2" onsubmit="sConsole(event)">
+        {% csrf_token %}
+        <input type="text" name="Comment_text" placeholder="Search crypto" class="form-control addtxt" id="data">
+        <button type="submit" class="btn btn-primary ml-2" onclick="getValue()">Search</button>
+      </form>
     </nav>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
@@ -47,11 +52,7 @@
         <!-- Sidebar content -->
       </nav>
       <!-- partial -->
-      <form action='' method="POST" class="d-flex justify-content-center pt-3 pb-2" onsubmit="sConsole(event)">
-        {% csrf_token %}
-        <input type="text" name="Comment_text" placeholder="Search crypto" class="form-control addtxt" id="data">
-        <button type="submit" class="btn btn-primary ml-2" onclick="getValue()">Search</button>
-      </form>
+
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
