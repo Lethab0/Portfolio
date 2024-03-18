@@ -21,6 +21,10 @@
   <link rel="stylesheet" href="{% static 'Dashboard/css/vertical-layout-light/style.css' %}">
   <!-- endinject -->
   <link rel="shortcut icon" href="{% static 'Dashboard/images/favicon.png' %}" />
+  <!-- search button-->
+  <link rel="stylesheet" type="text/css" href="{% static 'auctions/css/bootstrap.css' %}" /> 
+  <link rel="stylesheet" type="text/css" href="{% static 'auctions/css/comment.css' %}" />
+  
 </head>
 
 <body>
@@ -43,6 +47,11 @@
         <!-- Sidebar content -->
       </nav>
       <!-- partial -->
+      <form action='' method="POST" class="d-flex justify-content-center pt-3 pb-2" onsubmit="sConsole(event)">
+        {% csrf_token %}
+        <input type="text" name="Comment_text" placeholder="Search crypto" class="form-control addtxt" id="data">
+        <button type="submit" class="btn btn-primary ml-2" onclick="getValue()">Search</button>
+      </form>
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
@@ -55,7 +64,7 @@
                     <canvas id="lineChart"></canvas>
                   </div>
                         <div class="card-body">
-                    <h4 class="card-title">market volatility</h4>
+                    <h4 class="card-title">Overvall market volatility</h4>
                     <!-- Add canvas for the bar chart -->
                     <canvas id="myChart"></canvas>
                     <div id="bitcoin-description"></div>
@@ -66,7 +75,7 @@
             <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Bar chart</h4>
+                  <h4 class="card-title">Price over current 8 days</h4>
                   <!-- Add canvas for the bar chart -->
                   <canvas id="barChart"></canvas>
                 </div>
@@ -121,24 +130,47 @@
 
   <!-- Custom script for creating the charts -->
   <script>
+    function sConsole(event) {
+      event.preventDefault();
+      var data = document.getElementById("data");
+      console.log(data.value);
+      info(data);
+      barstuff(data);
+  
+    }
+    
+    
+    
+    
+
+  
+  // Convert form data to string
+
     // Function to generate random colors
     function randomColor() {
         return '#' + Math.random().toString(16).slice(2, 8).toUpperCase();
     }
 
     // Fetch Bitcoin description
-  fetch('https://api.coingecko.com/api/v3/coins/bitcoin')
+    function info(data) {
+      fetch(`https://api.coingecko.com/api/v3/coins/${data.value}`)
     .then(response => response.json())
     .then(data => {
       const bitcoinDescription = data.description["en"];
       const words = bitcoinDescription.split(/\s+/); // Splitting by whitespace characters
       const first100Words = words.slice(0, 100).join(' '); // Taking the first 100 words and joining them back into a string
 
+      
       // Displaying the first 100 words in the HTML element
       const descriptionElement = document.getElementById('bitcoin-description');
       descriptionElement.textContent = first100Words;
+      
     })
     .catch(error => console.error('Error fetching Bitcoin description:', error));
+    }
+  
+
+
 
     // Data for the line chart (sample data)
     var lineData = {
@@ -152,17 +184,49 @@
         }]
     };
 
-    // Data for the bar chart (sample data)
+function barstuff(coin) {
+  const url = `https://api.coingecko.com/api/v3/coins/${coin.value}/market_chart?vs_currency=zar&days=7&interval=daily`;
+
+    
+    let barinfo = [];
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(bitcoinData => {
+            const prices = bitcoinData.prices;
+            if (prices && prices.length > 0) {
+                barinfo = prices.map(price => price[1]);
+                console.log('Second numbers from prices:', barinfo);
+                
+                // Update data for the existing chart
+                myBarChart.data.datasets[0].data = barinfo;
+                myBarChart.data.labels = Array.from({length: barinfo.length}, (_, i) => 'Day ' + (i + 1));
+                myBarChart.update(); // Update the chart with new data
+            } else {
+                console.error('Prices data not available');
+            }
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
+
+
+    //
     var barData = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-        datasets: [{
-            label: 'Sales',
-            backgroundColor: randomColor(),
-            borderColor: randomColor(),
-            borderWidth: 1,
-            data: [10, 20, 30, 25, 15, 40] // Sample sales data
-        }]
-    };
+                labels: ['d','c','c'],
+                datasets: [{
+                    label: 'Crypto Prices (ZAR)',
+                    backgroundColor: randomColor(),
+                    borderColor: randomColor(),
+                    borderWidth: 1,
+                    data: [2,6,7,8,6,4], // Sample sales data
+                }]
+            };
 
     // Data for the area chart (sample data)
     var areaData = {
@@ -252,6 +316,13 @@
         data: pieData,
         options: chartOptions
     });
+
+
+    ///bar graph
+
+
+
+
 
 
     // Function to fetch crypto prices and update the pie chart
