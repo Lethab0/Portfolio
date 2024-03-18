@@ -56,11 +56,6 @@
                 <li class="nav-item active">
                   <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href=""> About</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href=""> Service </a>
                 </li>
               </ul>
             </div>
@@ -83,36 +78,33 @@
               <p>
                 I'm a Back-End Developer passionate about creating robust, efficient, and scalable solutions. My expertise in server-side technologies, database architecture, and API development delivers cutting-edge solutions. I'm always up-to-date with industry trends, bringing innovation to every project. I'd love to connect and discuss how I can take your ideas to new heights through back-end development. Thank you for visiting, and I look forward to working with you!
               </p>
-              <a href="" class="">
-                Contact Us
-              </a>
             </div>
           </div>
-          <div class="col-lg-5 col-md-6 offset-lg-1">
+          <!--<div class="col-lg-5 col-md-6 offset-lg-1">
             <div class="img_content">
               <div class="img_container">
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                   <div class="carousel-inner">
                     <div class="carousel-item active">
                       <div class="img-box">
-                        <img src="{% static 'images/slider-img.jpg' %}" alt="">
+                        <img src="{% static 'images/main.jpg' %}" alt="">
                       </div>
                     </div>
                     <div class="carousel-item">
                       <div class="img-box">
-                        <img src="{% static 'images/slider-img.jpg' %}" alt="">
+                        <img src="{% static 'images/main.jpg' %}" alt="">
                       </div>
                     </div>
                     <div class="carousel-item">
                       <div class="img-box">
-                        <img src="{% static 'images/slider-img.jpg' %}" alt="">
+                        <img src="{% static 'images/main.jpg' %}" alt="">
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>   
+          </div>  --> 
         </div>
       </div>
     </section>
@@ -156,7 +148,7 @@
                   Auction site
                 </h5>
                 <p>
-                  A place to buy some stuff for yourself wuhsijsiwjdwjds
+                  Dynamic eCommerce site showcasing development expertise.
                 </p>
               </div>
           </div>
@@ -171,9 +163,9 @@
       </div>
     </div>
   </section>
-  <!-- end service section -->
+  <!-- end service section https://api.coingecko.com/api/v3/coins/bitcoin -->
 
-  <!-- about section -->
+  <!-- about section 
   <section class="about_section layout_padding">
     <div class="container">
       <div class="row">
@@ -207,7 +199,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
   <!-- end about section -->
 
 
@@ -268,6 +260,33 @@
 
   <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
   <script src="{% static 'js/bootstrap.js' %}"></script>
+
+  <script>
+const url = 'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=zar&days=7&interval=daily';
+
+fetch(url)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(bitcoinData => {
+    const prices = bitcoinData.prices;
+    if (prices && prices.length > 0) {
+      const secondNumbers = prices.map(price => price[1]);
+      console.log('Second numbers from prices:', secondNumbers);
+    } else {
+      console.error('Prices data not available');
+    }
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+  });
+
+
+
+  </script>
 
 </body>
 
